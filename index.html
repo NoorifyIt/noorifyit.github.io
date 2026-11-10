@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<!--
+  =====================================================================
+   HOW TO EDIT THIS WEBSITE  (you only need a text editor, e.g. Notepad)
+  =====================================================================
+   All the words, sections, buttons, products and reviews live in ONE
+   place: scroll down to the block that starts with  "const SITE = {"
+   and  "const SECTIONS = ["  near the bottom of this file.
+
+   • Change text   → edit the words between the quotes "like this".
+   • Hide a part   → set  show: false   (set back to true to bring it back).
+   • Delete a part → delete its whole { ... }, block, including the comma.
+   • Reorder parts → cut a { ... }, block and paste it higher or lower.
+   • Add a part    → copy the "text" section template and paste it where
+                     you want it. Each section needs a unique id.
+   • Add a product → copy one product line in PRODUCTS and edit it.
+   • Colors/fonts  → change the values under ":root" at the top of <style>.
+
+   Golden rule: keep the quotes "..." and commas , exactly as they are.
+   If the page goes blank after an edit, a quote or comma is missing.
+  =====================================================================
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Noorify it! Home Decor</title>
+<meta name="description" content="Noorify it! | Home decor, designs, daily home essentials by Mily J Singh.">
+<meta property="og:title" content="Noorify it! Home Decor">
+<meta property="og:description" content="Home decor, designs, daily home essentials by Mily J Singh.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Playfair+Display:wght@400;500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   NOORIFY IT! — design tokens
+   Layout idea: a calm single column floating on a watercolor
+   wash; content sits on soft translucent "paper" panels.
+   ============================================================ */
+:root {
+  --blush: #f6e7cc;
+  --sand:  #f1e2c6;
+  --mist:  #fbf3e3;
+  --gold:  #b98f3a;
+  --gold-soft: #e7cf96;
+  --ink:   #3f3428;
+  --ink-soft: #7d6b55;
+  --paper: rgba(255, 255, 255, 0.92);
+  --paper-solid: #ffffff;
+  --font-display: "Marcellus", "Optima", "Palatino Linotype", Georgia, serif;
+  --font-body: "Jost", "Helvetica Neue", Arial, sans-serif;
+  --radius: 18px;
+  --wrap: 1120px;
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--ink);
+  /* fallback wash if the canvas can't draw */
+  background:
+    radial-gradient(60vw 50vw at 10% 5%, var(--blush), transparent 70%),
+    radial-gradient(55vw 45vw at 95% 25%, var(--mist), transparent 70%),
+    radial-gradient(60vw 50vw at 30% 95%, var(--sand), transparent 70%),
+    var(--paper-solid);
+  background-attachment: fixed;
+}
+
+#wash {
+  position: fixed; inset: 0; width: 100%; height: 100%;
+  z-index: -1; pointer-events: none;
+}
+
+a { color: inherit; }
+img, svg { max-width: 100%; }
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 1.12;
+  text-wrap: balance;
+  margin: 0;
+}
+h2 { font-size: clamp(2rem, 4vw, 2.8rem); }
+h3 { font-size: 1.45rem; }
+
+.wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 clamp(16px, 4vw, 40px); }
+
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 6px; }
+
+/* ---------- Header ---------- */
+header.site {
+  position: sticky; top: 0; z-index: 10;
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.88);
+  border-bottom: 1px solid rgba(176, 138, 69, 0.18);
+}
+.nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-top: 14px; padding-bottom: 14px; flex-wrap: wrap; }
+.logo { font-family: var(--font-display); font-size: 1.7rem; font-weight: 400; text-decoration: none; letter-spacing: 0.01em; }
+.logo span { color: var(--gold); font-style: italic; }
+.nav ul { list-style: none; display: flex; gap: clamp(14px, 2.5vw, 30px); margin: 0; padding: 0; flex-wrap: wrap; }
+.nav a.link { text-decoration: none; font-size: 0.92rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-soft); }
+.nav a.link:hover { color: var(--gold); }
+
+/* ---------- Hero ---------- */
+.hero { padding: clamp(56px, 10vw, 110px) 0 clamp(40px, 6vw, 70px); }
+.hero-grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: clamp(24px, 5vw, 64px); align-items: center; }
+.eyebrow { font-size: 0.8rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin: 0 0 14px; }
+.hero h1 { font-family: "Playfair Display", Georgia, serif; font-size: clamp(2.4rem, 5.2vw, 3.9rem); }
+/* upright letters slanted by hand: italic look, but the J keeps its clear shape */
+.hero h1 em { color: var(--gold); font-style: normal; font-weight: 400; letter-spacing: 0.01em; display: inline-block; transform: skewX(-11deg); }
+.hero p.lede { max-width: 34em; font-size: 1.12rem; color: var(--ink-soft); margin: 22px 0 32px; }
+.meaning { font-family: var(--font-display); font-style: italic; font-size: 1.1rem; color: var(--ink-soft); }
+.meaning b { font-style: normal; color: var(--gold); font-weight: 600; }
+
+.btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 13px 26px; border-radius: 999px;
+  font-family: var(--font-body); font-size: 0.95rem; font-weight: 400; letter-spacing: 0.04em;
+  text-decoration: none; cursor: pointer; border: 1px solid var(--gold);
+  transition: background 0.25s, color 0.25s, transform 0.25s;
+}
+.btn-solid { background: var(--gold); color: #fff; }
+.btn-solid:hover { background: #a27a2c; transform: translateY(-1px); }
+.btn-ghost { background: transparent; color: var(--ink); }
+.btn-ghost:hover { background: rgba(176, 138, 69, 0.1); }
+.btn-row { display: flex; gap: 14px; flex-wrap: wrap; }
+
+.hero-art {
+  aspect-ratio: 4 / 5; border-radius: 200px 200px var(--radius) var(--radius);
+  background: var(--paper); border: 1px solid rgba(176, 138, 69, 0.3);
+  display: grid; place-items: center; padding: 12%;
+  box-shadow: 0 30px 60px -30px rgba(120, 90, 40, 0.25);
+}
+
+/* ---------- Divider ---------- */
+.divider { display: flex; align-items: center; gap: 16px; justify-content: center; color: var(--gold); margin: 0 auto; max-width: 360px; }
+.divider::before, .divider::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--gold-soft), transparent); }
+
+/* ---------- Sections ---------- */
+section.block { padding: clamp(56px, 8vw, 96px) 0; }
+.section-head { text-align: center; max-width: 620px; margin: 0 auto 40px; }
+.section-head p { color: var(--ink-soft); margin: 12px 0 0; }
+
+.panel {
+  background: var(--paper);
+  border: 1px solid rgba(185, 143, 58, 0.16);
+  box-shadow: 0 10px 30px -18px rgba(120, 90, 40, 0.18);
+  border-radius: var(--radius);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+}
+
+/* ---------- Shop ---------- */
+.chips { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 36px; }
+.chip {
+  font-family: var(--font-body); font-size: 0.9rem; font-weight: 400;
+  padding: 8px 18px; border-radius: 999px; cursor: pointer;
+  border: 1px solid rgba(176, 138, 69, 0.4); background: #ffffff; color: var(--ink);
+}
+.chip[aria-pressed="true"] { background: var(--gold); border-color: var(--gold); color: #fff; }
+
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 24px; }
+.card { display: flex; flex-direction: column; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; }
+.card:hover { transform: translateY(-4px); box-shadow: 0 24px 40px -28px rgba(120, 90, 40, 0.35); }
+.card-art { aspect-ratio: 1; display: grid; place-items: center; padding: 18%; position: relative; }
+.card-art.t-blush { background: linear-gradient(160deg, #ffffff, #f8ecd6); }
+.card-art.t-mist  { background: linear-gradient(160deg, #ffffff, #fbf4e6); }
+.card-art.t-sand  { background: linear-gradient(160deg, #ffffff, #f4e4c6); }
+.badge {
+  position: absolute; top: 12px; left: 12px;
+  font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.85); color: var(--ink-soft); padding: 4px 10px; border-radius: 999px;
+}
+.badge.own { background: var(--gold); color: #fff; }
+.card-body { padding: 18px 20px 22px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+.card-body .cat { font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); }
+.card-body p { margin: 0; color: var(--ink-soft); font-size: 0.95rem; flex: 1; }
+.card-foot { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 12px; }
+.price { font-family: var(--font-display); font-size: 1.4rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+.card .btn { padding: 9px 18px; font-size: 0.85rem; white-space: nowrap; }
+.card .btn.full { width: 100%; justify-content: center; }
+
+/* ---------- Originals teaser ---------- */
+.teaser { display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: center; padding: clamp(28px, 4vw, 44px); margin-top: 40px; }
+.teaser p { margin: 8px 0 0; color: var(--ink-soft); }
+
+/* ---------- About ---------- */
+.about { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: clamp(24px, 5vw, 60px); align-items: center; padding: clamp(28px, 5vw, 56px); }
+.about-art { aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #fff 0, var(--blush) 45%, var(--sand) 100%); display: grid; place-items: center; padding: 18%; border: 1px solid rgba(176, 138, 69, 0.3); }
+.about p { max-width: 60ch; }
+.edit-note {
+  font-size: 0.82rem; color: var(--gold); border: 1px dashed var(--gold-soft);
+  border-radius: 10px; padding: 6px 12px; display: inline-block; margin-bottom: 14px; background: rgba(255,255,255,0.4);
+}
+
+/* ---------- Testimonials ---------- */
+.quotes { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
+.quote { padding: 30px 28px; display: flex; flex-direction: column; gap: 16px; }
+.quote .mark { font-family: var(--font-display); font-size: 3.4rem; line-height: 0.6; color: var(--gold-soft); height: 22px; }
+.quote blockquote { margin: 0; font-family: var(--font-display); font-size: 1.3rem; font-style: italic; line-height: 1.4; }
+.quote figcaption { font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); }
+.quote.placeholder { border: 1.5px dashed var(--gold-soft); }
+
+/* ---------- Contact ---------- */
+.contact { text-align: center; padding: clamp(36px, 6vw, 64px) clamp(20px, 5vw, 56px); }
+.contact .btn-row { justify-content: center; margin-top: 26px; }
+.handle { font-family: var(--font-display); font-size: clamp(1.6rem, 4vw, 2.2rem); color: var(--gold); margin: 10px 0 0; }
+.small { font-size: 0.85rem; color: var(--ink-soft); }
+
+/* ---------- Footer ---------- */
+footer { padding: 40px 0 50px; text-align: center; font-size: 0.85rem; color: var(--ink-soft); }
+footer .disclosure { max-width: 60ch; margin: 0 auto 10px; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 800px) {
+  .hero-grid, .about { grid-template-columns: 1fr; }
+  .hero-art { max-width: 320px; margin: 0 auto; order: -1; aspect-ratio: 1; border-radius: 50%; }
+  .about-art { max-width: 220px; margin: 0 auto; }
+  .teaser { grid-template-columns: 1fr; }
+}
+@media (max-width: 520px) {
+  .nav { justify-content: center; }
+  .nav ul { justify-content: center; gap: 14px; }
+}
+.teaser { margin-top: 0; }
+section.block.tight { padding-top: 0; }
+.textblock { padding: clamp(28px, 5vw, 56px); }
+.textblock p { max-width: 65ch; }
+.textblock .btn-row { margin-top: 20px; }
+.plans { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 340px)); gap: 24px; justify-content: center; }
+.plan { position: relative; padding: 34px 30px 30px; display: flex; flex-direction: column; gap: 10px; }
+.plan.featured { border: 1.5px solid var(--gold); box-shadow: 0 24px 48px -28px rgba(120, 90, 40, 0.4); }
+.plan-tag { position: absolute; top: -13px; left: 50%; transform: translateX(-50%); background: var(--gold); color: #fff; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; padding: 5px 14px; border-radius: 999px; white-space: nowrap; }
+.plan-price { font-family: var(--font-display); font-size: 2.4rem; margin: 0; color: var(--gold); font-variant-numeric: tabular-nums; }
+.plan-price span { font-family: var(--font-body); font-size: 0.95rem; color: var(--ink-soft); margin-left: 6px; }
+.plan ul { list-style: none; padding: 0; margin: 6px 0 18px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+.plan li { padding-left: 22px; position: relative; color: var(--ink-soft); font-size: 0.97rem; }
+.plan li::before { content: "✦"; position: absolute; left: 0; color: var(--gold); font-size: 0.8rem; top: 2px; }
+.plan .btn { justify-content: center; }
+.plan-note { text-align: center; margin-top: 22px; }
+</style>
+</head>
+<body>
+
+<canvas id="wash" aria-hidden="true"></canvas>
+
+<header class="site">
+  <nav class="wrap nav" aria-label="Main">
+    <a class="logo" href="#top" id="logo"></a>
+    <ul id="menu"></ul>
+  </nav>
+</header>
+
+<main id="top"></main>
+
+<footer>
+  <div class="wrap" id="footer"></div>
+</footer>
+
+<script>
+/* =====================================================================
+   1) SITE-WIDE SETTINGS
+   ===================================================================== */
+const SITE = {
+  name: "Noorify",          // logo, first part
+  nameAccent: "it!",        // logo, gold italic part
+  instagram: "https://www.instagram.com/Milyjsingh/",
+  footerNote: "As an Amazon Associate, Noorify it! earns from qualifying purchases. It costs you nothing extra and helps us keep finding pretty things.",
+  copyright: "Noorify it! Home Decor",
+};
+
+/* =====================================================================
+   2) SECTIONS — the page shows these from top to bottom, in this order.
+      menu: the word shown in the top menu ("" = not in the menu)
+      show: true / false to show or hide without deleting
+   ===================================================================== */
+const SECTIONS = [
+
+  { type: "hero", id: "home", menu: "", show: true,
+    eyebrow: "Curated with love",
+    titleBefore: "Home decor, designs, daily home essentials by",
+    titleGold: "Mily J Singh",
+    titleAfter: "",
+    text: "Soft, serene pieces that make a room feel like a deep breath. Hand-picked candles, vases, textiles and wall art, plus our own collection, coming soon.",
+    buttons: [
+      { label: "Shop the edit", link: "#shop", style: "solid" },
+      { label: "Follow on Instagram", link: "https://www.instagram.com/Milyjsingh/", style: "ghost" },
+    ],
+    footnoteWord: "noor",
+    footnote: "(n.) light, radiance, glow.",
+  },
+
+  { type: "shop", id: "shop", menu: "Shop", show: true,
+    eyebrow: "The edit",
+    title: "Pieces we're loving right now",
+    text: "Tap a piece to see it on Amazon. New finds are added every week.",
+    showFilters: true,
+  },
+
+  { type: "banner", id: "originals", menu: "", show: true,
+    title: "Noorify originals, coming soon",
+    text: "We're designing our own pieces. Follow along on Instagram to see the first drop before anyone else.",
+    button: { label: "Get early access", link: "https://www.instagram.com/Milyjsingh/" },
+  },
+
+  { type: "about", id: "about", menu: "About", show: true,
+    eyebrow: "About us",
+    title: "A home should feel like Noor.",
+    paragraphs: [
+      "Noorify it! started with a simple idea: the smallest touches, like a soft cushion, a warm candle or a vase of dried flowers, can change how a whole room feels.",
+      "[Your story goes here. Who you are, why you started, what you look for in a piece, and what's coming next.]",
+    ],
+  },
+
+  { type: "testimonials", id: "love", menu: "Kind words", show: true,
+    eyebrow: "Kind words",
+    title: "From homes we've helped glow",
+    // placeholder: true shows a dashed "fill me in" card. Set it to false
+    // (or delete that line) once you paste in a real customer's words.
+    items: [
+      { quote: "Add a customer's words here. One or two warm sentences work best.", name: "Customer name", place: "City", placeholder: true },
+      { quote: "Add a second review here, with their permission.", name: "Customer name", place: "City", placeholder: true },
+      { quote: "Add a third review here, ideally about a specific product.", name: "Customer name", place: "City", placeholder: true },
+    ],
+  },
+
+  /* ---- TEMPLATE: a plain text section. Copy this whole block to add
+          your own part (FAQ, shipping info, styling tips...). ---- */
+  { type: "text", id: "styling-tips", menu: "", show: false,
+    eyebrow: "Styling tips",
+    title: "Your heading here",
+    paragraphs: [ "First paragraph.", "Second paragraph." ],
+    buttons: [ ],   // e.g. { label: "Read more", link: "https://...", style: "ghost" }
+  },
+
+  { type: "newsletter", id: "newsletter", menu: "Newsletter", show: true,
+    eyebrow: "The Noor letter",
+    title: "A little light in your inbox",
+    text: "Styling ideas, new finds and first looks at our originals. Pick the plan that suits you.",
+    // Each plan is one card. Copy a { ... }, block to add a plan, delete one to remove it.
+    // link: paste the sign-up or payment page from your newsletter service here.
+    // featured: true highlights that card in gold.
+    plans: [
+      { name: "Noor Notes", price: "Free", period: "",
+        perks: [ "Weekly home decor finds", "Seasonal styling tips", "Sale alerts on favourite pieces" ],
+        button: { label: "Join for free", link: "#" }, featured: false },
+      { name: "Noor Circle", price: "₹99", period: "/ month",
+        perks: [ "Everything in Noor Notes", "Monthly room mood boards", "Early access to Noorify originals", "Members-only styling Q&A" ],
+        button: { label: "Become a member", link: "#" }, featured: true, tag: "Most loved" },
+    ],
+    note: "Cancel anytime. Payments are handled securely by our newsletter partner.",
+  },
+
+  { type: "contact", id: "contact", menu: "Contact", show: true,
+    eyebrow: "Say hello",
+    title: "Let's make your space glow",
+    text: "Questions, styling help or collaborations: DM us on Instagram.",
+    handle: "@Milyjsingh",
+    buttons: [
+      { label: "Message on Instagram", link: "https://www.instagram.com/Milyjsingh/", style: "solid" },
+      // WhatsApp: remove the two slashes at the start of the next line and
+      // put your number with country code, no + or spaces (e.g. 919876543210)
+      // { label: "Chat on WhatsApp", link: "https://wa.me/91XXXXXXXXXX", style: "ghost" },
+    ],
+  },
+];
+
+/* =====================================================================
+   3) PRODUCTS
+   type: "amazon" → "View on Amazon" button using link
+   type: "own"    → shows price in ₹ and an "Order via DM" button
+   art:  candle | vase | lamp | cushion | mirror | plant | frame | throw
+   tint: blush | mist | sand
+   ===================================================================== */
+const PRODUCTS = [
+  { name: "Ribbed Glass Bud Vase",     category: "Vases & Planters", note: "Fluted glass that catches morning light. Lovely with a single stem.", type: "amazon", link: "#", art: "vase",    tint: "mist"  },
+  { name: "Vanilla & Rose Soy Candle", category: "Candles & Scents", note: "Soft, not sugary. Burns clean in a reusable ceramic jar.",          type: "amazon", link: "#", art: "candle",  tint: "blush" },
+  { name: "Arched Gold Wall Mirror",   category: "Wall Decor",       note: "A slim gold frame that makes any corner feel bigger and brighter.", type: "amazon", link: "#", art: "mirror",  tint: "sand"  },
+  { name: "Linen Cushion Cover",       category: "Textiles",         note: "Washed linen in warm sand, soft from the very first use.",          type: "amazon", link: "#", art: "cushion", tint: "blush" },
+  { name: "Mushroom Table Lamp",       category: "Lighting",         note: "Warm, diffused glow for bedside reading and slow evenings.",         type: "amazon", link: "#", art: "lamp",    tint: "sand"  },
+  { name: "Ceramic Planter Set",       category: "Vases & Planters", note: "Three matte planters in ivory, sand and gold.",                      type: "amazon", link: "#", art: "plant",   tint: "mist"  },
+  { name: "Botanical Print Trio",      category: "Wall Decor",       note: "Watercolor florals that go with almost any wall color.",             type: "amazon", link: "#", art: "frame",   tint: "blush" },
+  { name: "Waffle Knit Throw",         category: "Textiles",         note: "Light enough for Indian summers, cosy enough for winter nights.",    type: "amazon", link: "#", art: "throw",   tint: "mist"  },
+  // { name: "Noor Tealight Holder", category: "Candles & Scents", note: "Our first original.", type: "own", price: 899, art: "candle", tint: "sand" },
+];
+
+/* =====================================================================
+   ↓↓↓  You don't need to edit anything below this line.  ↓↓↓
+   ===================================================================== */
+
+const ART = {
+  vase:    '<path d="M38 18h24M42 18v10c-12 8-16 22-12 38 3 12 10 18 20 18s17-6 20-18c4-16 0-30-12-38V18"/><path d="M50 18c0-6 4-10 8-12"/>',
+  candle:  '<path d="M50 14c-5 7-5 12 0 16 5-4 5-9 0-16Z" fill="#fff" fill-opacity=".7"/><rect x="34" y="36" width="32" height="48" rx="4"/><path d="M50 30v6M34 48h32"/>',
+  mirror:  '<path d="M28 88V44a22 22 0 0 1 44 0v44Z"/><path d="M34 84V46a16 16 0 0 1 32 0v38Z" stroke-opacity=".5"/><path d="M44 50l10-10M44 60l16-16" stroke-opacity=".4"/>',
+  cushion: '<path d="M20 30c10 4 50 4 60 0-4 14-4 26 0 40-10-4-50-4-60 0 4-14 4-26 0-40Z"/><path d="M36 42c8 8 20 8 28 0M36 58c8-8 20-8 28 0" stroke-opacity=".5"/>',
+  lamp:    '<path d="M24 46c0-16 12-26 26-26s26 10 26 26Z"/><path d="M50 46v34M36 84h28"/><path d="M40 54c3 2 17 2 20 0" stroke-opacity=".45"/>',
+  plant:   '<path d="M32 58h36l-5 28H37Z"/><path d="M50 58V36M50 46c-8-2-14-8-16-16 8 0 14 6 16 16ZM50 40c6-4 14-6 20-4-2 8-10 10-20 4Z"/>',
+  frame:   '<rect x="22" y="22" width="56" height="60" rx="2"/><rect x="30" y="30" width="40" height="44" stroke-opacity=".5"/><path d="M50 66V44M50 52c-6-2-9-6-9-11 5 1 8 5 9 11ZM50 48c5-2 9-6 9-11-5 1-8 5-9 11Z"/>',
+  throw:   '<path d="M22 34h56v38c-6 6-14 8-20 4-6-4-14-4-20 0-6 4-12 2-16-2Z"/><path d="M22 44h56M22 54h56M22 64h56" stroke-opacity=".35"/>'
+};
+const GOLD = "#b98f3a";
+const svgFor = k => `<svg viewBox="0 0 100 100" fill="none" stroke="${GOLD}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ART[k] || ART.vase}</svg>`;
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
+const isExternal = l => /^https?:/i.test(l || "");
+const btn = b => `<a class="btn btn-${b.style === "ghost" ? "ghost" : "solid"}" href="${esc(b.link || "#")}"${isExternal(b.link) ? ' target="_blank" rel="noopener"' : ""}>${esc(b.label)}</a>`;
+const btnRow = (list, extra = "") => (list && list.length) ? `<div class="btn-row"${extra}>${list.map(btn).join("")}</div>` : "";
+const head = s => `<div class="section-head">${s.eyebrow ? `<p class="eyebrow">${esc(s.eyebrow)}</p>` : ""}<h2>${esc(s.title)}</h2>${s.text ? `<p>${esc(s.text)}</p>` : ""}</div>`;
+const paras = list => (list || []).map(p => `<p>${esc(p)}</p>`).join("");
+
+const HERO_ART = `<svg viewBox="0 0 200 240" fill="none" stroke="${GOLD}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M30 230 V90 a70 70 0 0 1 140 0 V230 Z" stroke-opacity="0.55"/>
+  <line x1="100" y1="20" x2="100" y2="230" stroke-opacity="0.25"/><line x1="30" y1="120" x2="170" y2="120" stroke-opacity="0.25"/>
+  <path d="M78 230 c-14-22-10-48 8-58 h28 c18 10 22 36 8 58 Z" fill="#f3dfba" fill-opacity="0.7"/>
+  <path d="M92 172 v-10 h16 v10"/><path d="M100 162 C98 130 86 110 70 92"/><path d="M100 162 C104 126 118 104 138 88"/><path d="M100 162 C100 130 100 100 102 70"/>
+  <ellipse cx="66" cy="88" rx="10" ry="6" transform="rotate(-35 66 88)" fill="#f6e7cc"/><ellipse cx="142" cy="84" rx="10" ry="6" transform="rotate(30 142 84)" fill="#e7cf96"/>
+  <ellipse cx="102" cy="64" rx="6" ry="10" fill="#f3dfba"/><circle cx="150" cy="44" r="8" fill="#e2c27a" fill-opacity="0.6" stroke="none"/></svg>`;
+const ABOUT_ART = `<svg viewBox="0 0 100 100" fill="none" stroke="${GOLD}" stroke-width="1.4" stroke-linecap="round"><path d="M50 18 C40 34 40 44 50 52 C60 44 60 34 50 18 Z" fill="#fff" fill-opacity="0.6"/><rect x="38" y="52" width="24" height="34" rx="3" fill="#f6e7cc"/><line x1="50" y1="52" x2="50" y2="47"/></svg>`;
+
+const RENDER = {
+  hero: s => `<section class="hero" id="${esc(s.id)}"><div class="wrap hero-grid"><div>
+      ${s.eyebrow ? `<p class="eyebrow">${esc(s.eyebrow)}</p>` : ""}
+      <h1>${esc(s.titleBefore)} ${s.titleGold ? `<em>${esc(s.titleGold)}</em>` : ""} ${esc(s.titleAfter)}</h1>
+      ${s.text ? `<p class="lede">${esc(s.text)}</p>` : ""}
+      ${btnRow(s.buttons)}
+      ${s.footnote ? `<p class="meaning" style="margin-top:30px;"><b>${esc(s.footnoteWord)}</b> ${esc(s.footnote)}</p>` : ""}
+    </div><div class="hero-art" aria-hidden="true">${HERO_ART}</div></div></section>
+    <div class="divider" aria-hidden="true">✦</div>`,
+
+  shop: s => `<section class="block" id="${esc(s.id)}"><div class="wrap">${head(s)}
+      ${s.showFilters !== false ? `<div class="chips" role="group" aria-label="Filter by category" data-chips></div>` : ""}
+      <div class="grid" data-grid></div></div></section>`,
+
+  banner: s => `<section class="block tight" id="${esc(s.id)}"><div class="wrap"><div class="panel teaser"><div>
+      <h3>${esc(s.title)}</h3>${s.text ? `<p>${esc(s.text)}</p>` : ""}</div>
+      ${s.button ? btn({ ...s.button, style: "ghost" }) : ""}</div></div></section>`,
+
+  about: s => `<section class="block" id="${esc(s.id)}"><div class="wrap"><div class="panel about">
+      <div class="about-art" aria-hidden="true">${ABOUT_ART}</div>
+      <div>${s.eyebrow ? `<p class="eyebrow">${esc(s.eyebrow)}</p>` : ""}<h2>${esc(s.title)}</h2>${paras(s.paragraphs)}</div>
+    </div></div></section>`,
+
+  testimonials: s => `<section class="block" id="${esc(s.id)}"><div class="wrap">${head(s)}<div class="quotes">
+      ${(s.items || []).map(q => `<figure class="panel quote${q.placeholder ? " placeholder" : ""}">
+        <div class="mark" aria-hidden="true">“</div><blockquote>${esc(q.quote)}</blockquote>
+        <figcaption>${esc(q.name)}${q.place ? " · " + esc(q.place) : ""}</figcaption></figure>`).join("")}
+    </div></div></section>`,
+
+  text: s => `<section class="block" id="${esc(s.id)}"><div class="wrap"><div class="panel textblock">
+      ${s.eyebrow ? `<p class="eyebrow">${esc(s.eyebrow)}</p>` : ""}<h2>${esc(s.title)}</h2>${paras(s.paragraphs)}${btnRow(s.buttons)}
+    </div></div></section>`,
+
+  newsletter: s => `<section class="block" id="${esc(s.id)}"><div class="wrap">${head(s)}
+      <div class="plans">${(s.plans || []).map(p => `<div class="panel plan${p.featured ? " featured" : ""}">
+        ${p.tag ? `<span class="plan-tag">${esc(p.tag)}</span>` : ""}
+        <h3>${esc(p.name)}</h3>
+        <p class="plan-price">${esc(p.price)}<span>${esc(p.period)}</span></p>
+        <ul>${(p.perks || []).map(k => `<li>${esc(k)}</li>`).join("")}</ul>
+        ${p.button ? btn({ ...p.button, style: p.featured ? "solid" : "ghost" }) : ""}
+      </div>`).join("")}</div>
+      ${s.note ? `<p class="small plan-note">${esc(s.note)}</p>` : ""}
+    </div></section>`,
+
+  contact: s => `<section class="block" id="${esc(s.id)}"><div class="wrap"><div class="panel contact">
+      ${s.eyebrow ? `<p class="eyebrow">${esc(s.eyebrow)}</p>` : ""}<h2>${esc(s.title)}</h2>
+      ${s.text ? `<p class="small" style="margin-top:12px;">${esc(s.text)}</p>` : ""}
+      ${s.handle ? `<p class="handle">${esc(s.handle)}</p>` : ""}${btnRow(s.buttons)}
+    </div></div></section>`,
+};
+
+function buildPage() {
+  const shown = SECTIONS.filter(s => s.show !== false && RENDER[s.type]);
+  document.getElementById("logo").innerHTML = `${esc(SITE.name)} <span>${esc(SITE.nameAccent)}</span>`;
+  document.getElementById("menu").innerHTML = shown.filter(s => s.menu)
+    .map(s => `<li><a class="link" href="#${esc(s.id)}">${esc(s.menu)}</a></li>`).join("");
+  document.getElementById("top").innerHTML = shown.map(s => RENDER[s.type](s)).join("");
+  document.getElementById("footer").innerHTML =
+    `${SITE.footerNote ? `<p class="disclosure">${esc(SITE.footerNote)}</p>` : ""}<p>© ${new Date().getFullYear()} ${esc(SITE.copyright)}</p>`;
+  setupShop();
+}
+
+function setupShop() {
+  const grid = document.querySelector("[data-grid]");
+  if (!grid) return;
+  const chipsEl = document.querySelector("[data-chips]");
+  const cats = ["All", ...new Set(PRODUCTS.map(p => p.category))];
+  let active = "All";
+  const renderChips = () => { if (chipsEl) chipsEl.innerHTML = cats.map((c, i) =>
+    `<button type="button" class="chip" id="chip-${i}" aria-pressed="${c === active}" data-cat="${esc(c)}">${esc(c)}</button>`).join(""); };
+  const renderGrid = () => {
+    const list = active === "All" ? PRODUCTS : PRODUCTS.filter(p => p.category === active);
+    grid.innerHTML = list.map(p => {
+      const own = p.type === "own";
+      const foot = own
+        ? `<span class="price">₹${Number(p.price).toLocaleString("en-IN")}</span>
+           <a class="btn btn-solid" href="${esc(SITE.instagram)}" target="_blank" rel="noopener">Order via DM</a>`
+        : `<a class="btn btn-solid full" href="${esc(p.link)}" target="_blank" rel="noopener sponsored">View on Amazon</a>`;
+      return `<article class="panel card">
+        <div class="card-art t-${esc(p.tint || "blush")}"><span class="badge ${own ? "own" : ""}">${own ? "Noorify original" : "Amazon pick"}</span>${svgFor(p.art)}</div>
+        <div class="card-body"><span class="cat">${esc(p.category)}</span><h3>${esc(p.name)}</h3><p>${esc(p.note)}</p>
+        <div class="card-foot">${foot}</div></div></article>`;
+    }).join("");
+  };
+  if (chipsEl) chipsEl.addEventListener("click", e => {
+    const b = e.target.closest(".chip"); if (!b) return;
+    active = b.dataset.cat; renderChips(); renderGrid();
+  });
+  renderChips(); renderGrid();
+}
+
+buildPage();
+
+/* ---------- Watercolor background ---------- */
+(function () {
+  const c = document.getElementById("wash");
+  const ctx = c.getContext && c.getContext("2d");
+  if (!ctx) return;
+  const COLORS = ["246,231,204", "241,226,198", "251,243,227", "217,180,105", "236,214,170", "255,246,228"];
+  function rng(seed) { return () => (seed = (seed * 16807) % 2147483647) / 2147483647; }
+  function paint() {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const w = window.innerWidth, h = window.innerHeight;
+    c.width = w * dpr; c.height = h * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.fillStyle = "#ffffff"; ctx.fillRect(0, 0, w, h);
+    const r = rng(7);
+    const blur = "filter" in ctx;
+    for (let i = 0; i < 16; i++) {
+      const col = COLORS[Math.floor(r() * COLORS.length)];
+      const isGold = col === "217,180,105";
+      const cx = r() * w, cy = r() * h;
+      const rad = (0.18 + r() * 0.32) * Math.max(w, h) * (isGold ? 0.5 : 1);
+      // several translucent layers with wobbly edges = watercolor bloom
+      for (let layer = 0; layer < 4; layer++) {
+        ctx.beginPath();
+        const pts = 14;
+        for (let k = 0; k <= pts; k++) {
+          const a = (k / pts) * Math.PI * 2;
+          const rr = rad * (0.7 + r() * 0.35) * (1 - layer * 0.12);
+          const x = cx + Math.cos(a) * rr, y = cy + Math.sin(a) * rr * 0.8;
+          k === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+        }
+        ctx.closePath();
+        if (blur) ctx.filter = `blur(${28 + layer * 10}px)`;
+        ctx.fillStyle = `rgba(${col},${isGold ? 0.07 : 0.12})`;
+        ctx.fill();
+      }
+    }
+    if (blur) ctx.filter = "none";
+    // fine paper grain
+    const g = rng(3);
+    ctx.fillStyle = "rgba(150,115,60,0.015)";
+    for (let i = 0; i < (w * h) / 900; i++) ctx.fillRect(g() * w, g() * h, 1, 1);
+  }
+  let t; paint();
+  window.addEventListener("resize", () => { clearTimeout(t); t = setTimeout(paint, 200); });
+})();
+</script>
+</body>
+</html>
