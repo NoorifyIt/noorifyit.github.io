@@ -28,6 +28,9 @@
 <meta name="description" content="Noorify it! | Home decor, designs, daily home essentials by Mily J Singh.">
 <meta property="og:title" content="Noorify it! Home Decor">
 <meta property="og:description" content="Home decor, designs, daily home essentials by Mily J Singh.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://noorifyit.com/">
+<link rel="canonical" href="https://noorifyit.com/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Playfair+Display:wght@400;500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
@@ -246,6 +249,8 @@ section.block.tight { padding-top: 0; }
 .plan li::before { content: "✦"; position: absolute; left: 0; color: var(--gold); font-size: 0.8rem; top: 2px; }
 .plan .btn { justify-content: center; }
 .plan-note { text-align: center; margin-top: 22px; }
+/* buttons whose link is still "#" show as a quiet "coming soon" instead of a dead link */
+.btn[aria-disabled="true"] { opacity: 0.55; cursor: default; pointer-events: none; }
 </style>
 </head>
 <body>
@@ -258,6 +263,14 @@ section.block.tight { padding-top: 0; }
     <ul id="menu"></ul>
   </nav>
 </header>
+
+<noscript>
+  <p style="text-align:center;padding:48px 20px;font-family:Georgia,serif;">
+    Noorify it! | Home decor, designs, daily home essentials by Mily J Singh.<br>
+    Please turn on JavaScript to see the site, or find us on
+    <a href="https://www.instagram.com/Milyjsingh/">Instagram @Milyjsingh</a>.
+  </p>
+</noscript>
 
 <main id="top"></main>
 
@@ -410,7 +423,10 @@ const GOLD = "#b98f3a";
 const svgFor = k => `<svg viewBox="0 0 100 100" fill="none" stroke="${GOLD}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ART[k] || ART.vase}</svg>`;
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
 const isExternal = l => /^https?:/i.test(l || "");
-const btn = b => `<a class="btn btn-${b.style === "ghost" ? "ghost" : "solid"}" href="${esc(b.link || "#")}"${isExternal(b.link) ? ' target="_blank" rel="noopener"' : ""}>${esc(b.label)}</a>`;
+const isPending = l => !l || l === "#";
+const btn = b => isPending(b.link)
+  ? `<span class="btn btn-${b.style === "ghost" ? "ghost" : "solid"}" aria-disabled="true">Coming soon</span>`
+  : `<a class="btn btn-${b.style === "ghost" ? "ghost" : "solid"}" href="${esc(b.link)}"${isExternal(b.link) ? ' target="_blank" rel="noopener"' : ""}>${esc(b.label)}</a>`;
 const btnRow = (list, extra = "") => (list && list.length) ? `<div class="btn-row"${extra}>${list.map(btn).join("")}</div>` : "";
 const head = s => `<div class="section-head">${s.eyebrow ? `<p class="eyebrow">${esc(s.eyebrow)}</p>` : ""}<h2>${esc(s.title)}</h2>${s.text ? `<p>${esc(s.text)}</p>` : ""}</div>`;
 const paras = list => (list || []).map(p => `<p>${esc(p)}</p>`).join("");
@@ -501,7 +517,9 @@ function setupShop() {
       const foot = own
         ? `<span class="price">₹${Number(p.price).toLocaleString("en-IN")}</span>
            <a class="btn btn-solid" href="${esc(SITE.instagram)}" target="_blank" rel="noopener">Order via DM</a>`
-        : `<a class="btn btn-solid full" href="${esc(p.link)}" target="_blank" rel="noopener sponsored">View on Amazon</a>`;
+        : isPending(p.link)
+          ? `<span class="btn btn-solid full" aria-disabled="true">Link coming soon</span>`
+          : `<a class="btn btn-solid full" href="${esc(p.link)}" target="_blank" rel="noopener sponsored">View on Amazon</a>`;
       return `<article class="panel card">
         <div class="card-art t-${esc(p.tint || "blush")}"><span class="badge ${own ? "own" : ""}">${own ? "Noorify original" : "Amazon pick"}</span>${svgFor(p.art)}</div>
         <div class="card-body"><span class="cat">${esc(p.category)}</span><h3>${esc(p.name)}</h3><p>${esc(p.note)}</p>
